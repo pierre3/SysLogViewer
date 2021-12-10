@@ -1,0 +1,64 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<div class="filter">
+    <form method="post">
+        <div class="form-row">
+            <div class="col-2">
+                <label asp-for="StartDate" class="form-label"></label>
+                <input type="datetime-local" class="form-control" asp-for="StartDate" placeholder="開始日時">
+            </div>
+            <div class="col-2">
+                <label asp-for="EndDate" class="form-label"></label>
+                <input type="datetime-local" class="form-control" asp-for="EndDate" placeholder="終了日時">
+            </div>
+            <div class="col-2">
+                <label asp-for="SysLogType" class="form-label"></label>
+                <select class="form-control" asp-for="SysLogType" asp-items="Html.GetEnumSelectList<Models.SysLogTypes>()"></select>
+            </div>
+            <div class="col-4">
+                <label asp-for="UrlString" class="form-label"></label>
+                <input class="form-control" asp-for="UrlString" />
+            </div>
+            <div class="col-2 align-self-end">
+                <input class="btn btn-primary" type="submit" value="検索" />
+            </div>
+        </div>
+    </form>
+</div>
+<table class="table table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>CreatedTime</th>
+            <th>SysLogId</th>
+            <th>SysLogType</th>
+            <th>Class</th>
+            <th>Method</th>
+            <th>HttpMethod</th>
+            <th>Elapsed</th>
+            <th>Url</th>
+            <th>ErrMessage</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SysLogs)
+        {
+            <tr>
+                <td>@item.CreatedTime</td>
+                <td>@item.SysLogId</td>
+                <td>@item.SysLogType</td>
+                <td>@item.Class</td>
+                <td>@item.Method</td>
+                <td>@item.HttpMethod</td>
+                <td>@item.Elapsed</td>
+                <td>@item.Url</td>
+                <td>@item.ErrMessage</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
